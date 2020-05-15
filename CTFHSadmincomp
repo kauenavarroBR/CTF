@@ -32,8 +32,8 @@ echo '[+] Espere. Quebrando a senha...'
   unzip -P "$var3" -o "$var1" -d ./ 
 #Aguarda um segundo após descompactar
   sleep 1
-#Apaga o arquivo usado anteriormente para poder o script continuar a rodar pegando apenas o proximo arquivo a ser descompactado
- apagado=$( rm "$var1")
+#Move o arquivo usado anteriormente para poder o script continuar a rodar pegando apenas o proximo arquivo a ser descompactado
+ apagado=$( mv "$var1" ../descompactados)
  echo 'Arquivo apagado'$apagado
  echo '[+] Senha quebrada: '$var3
  echo 'Arquivo que foi usado para descompactar:'$var2
