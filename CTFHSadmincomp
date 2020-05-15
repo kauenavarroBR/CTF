@@ -1,0 +1,41 @@
+#!/bin/bash
+# [quebrazip.sh]
+# [Autor]
+# KauenavarroBR
+# [Uso]
+# $ ./quebrazip.sh 
+# Crie o arquivo quebra.sh e coloque dentro da mesma pasta do .zip
+# Função de ajuda.
+function show_help {
+echo 'quebrazip.sh - by KauenavarroBR'
+echo '[uso] $ ./quebrazip.sh '
+exit 1
+}
+# Função chamada quando se interrompe
+# o script com um ctrl+c. Essa função mostra
+# a senha usada no momento da interrupção.
+function pegarctrlc {
+echo "[+] Processo abortado. Senha atual: $var3"
+exit 1
+}
+# Instala um signal handler pro ctrl+c
+trap pegarctrlc SIGINT
+# Processo de quebragem.
+echo '[+] Espere. Quebrando a senha...'
+#Essa linha lista o arquivo no diretorio
+    var1=$(ls -t *.zip| head -1)
+#Essa variavel Cria o arquivo e salva no arquivo SENHATXT.txt o nome do arquivo que esta dentro do .zip    
+	var2=$(unzip -l "$var1" |cut -d "." -f1 > SENHATXT.txt)
+#Essa variavel obtem o nome do arquivo que é a Senha para descompactar o mesmo	
+	var3=$(cat -n ./SENHATXT.txt | grep -n ^ | grep ^4: | cut -c 40- )
+#Descompacta na pasta usando as variaveis obtidas acima	
+  unzip -P "$var3" -o "$var1" -d ./ 
+#Aguarda um segundo após descompactar
+  sleep 1
+#Apaga o arquivo usado anteriormente para poder o script continuar a rodar pegando apenas o proximo arquivo a ser descompactado
+ apagado=$( rm "$var1")
+ echo 'Arquivo apagado'$apagado
+ echo '[+] Senha quebrada: '$var3
+ echo 'Arquivo que foi usado para descompactar:'$var2
+ echo 'nome do PROXIMO arquivo A ser quebrado:' $var1
+ #EOF
