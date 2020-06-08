@@ -4,7 +4,9 @@
 # KauenavarroBR
 # [Uso]
 # $ ./quebrazip.sh 
-# Crie o arquivo quebra.sh e coloque dentro da mesma pasta do .zip
+# Crie o arquivo quebrazip.sh e coloque dentro da mesma pasta do .zip
+# Estrutura para o script funcionar corretamente:
+# Criar a pasta descompactados dentro da pasta aonde esta o arquivozip e o esse script
 # Função de ajuda.
 function show_help {
 echo 'quebrazip.sh - by KauenavarroBR'
@@ -21,6 +23,7 @@ exit 1
 # Instala um signal handler pro ctrl+c
 trap pegarctrlc SIGINT
 # Processo de quebragem.
+
 echo '[+] Espere. Quebrando a senha...'
 #Essa linha lista o arquivo no diretorio
     var1=$(ls -t *.zip| head -1)
@@ -33,7 +36,7 @@ echo '[+] Espere. Quebrando a senha...'
 #Aguarda um segundo após descompactar
   sleep 1
 #Move o arquivo usado anteriormente para poder o script continuar a rodar pegando apenas o proximo arquivo a ser descompactado
- apagado=$( mv "$var1" ../descompactados)
+ apagado=$( mv "$var1" ./descompactados)
  echo 'Arquivo apagado'$apagado
  echo '[+] Senha quebrada: '$var3
  echo 'Arquivo que foi usado para descompactar:'$var2
